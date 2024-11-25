@@ -1,7 +1,8 @@
 import { Config, defineConfig } from 'sanity';
-import { schemas } from './schemas';
+import { schemas } from './schema';
 import { structureTool } from 'sanity/structure';
-import { createClient } from '@sanity/client';
+
+const singletons = new Set(['home']);
 
 export const config = defineConfig<Config>({
   name: 'olehalv-web-studio',
@@ -11,16 +12,31 @@ export const config = defineConfig<Config>({
   dataset: 'production',
   basePath: '/studio',
 
-  plugins: [structureTool(undefined)],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .id('Content')
+          .title('Content')
+          .items([
+            S.listItem()
+              .id('homeSingleton')
+              .title('Home')
+              .child(S.document().schemaType('home').documentId('home')),
+            ...S.documentTypeListItems().splice(
+              S.documentTypeListItems().findIndex((it) =>
+                singletons.has(it.getSchemaType().toString())
+              ),
+              1
+            ),
+          ]),
+    }),
+  ],
 
   schema: {
     types: schemas,
-  },
-});
 
-export const client = createClient({
-  projectId: '3qfeo26x',
-  dataset: 'production',
-  useCdn: true,
-  apiVersion: '2024-11-25',
+    templates: (templates) =>
+      templates.filter(({ schemaType }) => !singletons.has(schemaType)),
+  },
 });

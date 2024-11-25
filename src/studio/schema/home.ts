@@ -1,8 +1,8 @@
 import { defineField, SchemaTypeDefinition } from 'sanity';
 
 export default {
-  name: 'routes',
-  title: 'Routes',
+  title: 'Home',
+  name: 'home',
   type: 'document',
   fields: [
     defineField({
@@ -10,13 +10,8 @@ export default {
       type: 'string',
     }),
     defineField({
-      name: 'route',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 200,
-        slugify: (input) => input.toLowerCase(),
-      },
+      name: 'undertittel',
+      type: 'string',
     }),
   ],
 } as SchemaTypeDefinition;
