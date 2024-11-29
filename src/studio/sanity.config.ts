@@ -23,11 +23,8 @@ export const config = defineConfig<Config>({
               .id('homeSingleton')
               .title('Home')
               .child(S.document().schemaType('home').documentId('home')),
-            ...S.documentTypeListItems().splice(
-              S.documentTypeListItems().findIndex((it) =>
-                singletons.has(it.getSchemaType().toString())
-              ),
-              1
+            ...S.documentTypeListItems().filter(
+              (item) => !singletons.has(item.getId())
             ),
           ]),
     }),

@@ -1,0 +1,30 @@
+.layout {
+  height: 100vh;
+  max-height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content {
+  padding-inline: 10rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .content {
+    padding-inline: 7.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .content {
+    padding-inline: 5rem;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .content {
+    padding-inline: 2.5rem;
+  }
+}

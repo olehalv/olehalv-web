@@ -10,26 +10,27 @@ export default {
       type: 'string',
     }),
     defineField({
-      name: 'description',
-      type: 'array',
-      of: [{ type: 'block' }],
+      name: 'url',
+      type: 'url',
+    }),
+    defineField({
+      name: 'summary',
+      type: 'string',
     }),
     defineField({
       name: 'skills',
       type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    defineField({
-      name: 'image',
-      type: 'array',
       of: [
         {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
+          type: 'reference',
+          to: [{ type: 'skills' }],
         },
       ],
+    }),
+    defineField({
+      name: 'description',
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
   ],
 } as SchemaTypeDefinition;
